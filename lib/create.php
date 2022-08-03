@@ -1,5 +1,5 @@
 <?php 
-    include '../config/db/index.php';
+    include '../db/config.php';
 
     if(isset($_POST['createItem'])){
         $brand = $_POST['brand'];

@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +8,8 @@
 
 	<title>Sign In | Capytech Inventory</title>
 
-	<link href="css/app.css" rel="stylesheet">
+    <link href="styles/css/bootstrap.min.css" rel="stylesheet">
+	<link href="styles/css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
@@ -25,20 +27,25 @@
 							</p>
 						</div>
 
+                        <?php 
+                        if(!empty($_SESSION["login_err"])){
+                            echo '<div role="alert" class="alert alert-danger">' . $_SESSION["login_err"] . '</div>';
+                        }        
+                        ?>
+
 						<div class="card">
 							<div class="card-body">
 								<div class="m-sm-4">
-									<div class="text-center">
-										<img src="img/avatars/avatar.jpg" alt="Charles Hall" class="img-fluid rounded-circle" width="132" height="132" />
-									</div>
-									<form>
+									<form action="lib/login.php" method="post" autocomplete="off">
 										<div class="mb-3">
-											<label class="form-label">Email</label>
-											<input class="form-control form-control-lg" type="email" name="email" placeholder="Enter your email" />
+											<label class="form-label">Username</label>
+											<input type="text" name="username" placeholder="Enter your username" class="form-control-lg form-control <?php echo (!empty($_SESSION["username_err"])) ? 'is-invalid' : ''; ?>">
+                                            <span class="invalid-feedback"><?php echo $_SESSION["username_err"]; ?></span>
 										</div>
 										<div class="mb-3">
 											<label class="form-label">Password</label>
-											<input class="form-control form-control-lg" type="password" name="password" placeholder="Enter your password" />
+											<input autocomplete="new-password" type="password" name="password" placeholder="Enter your password" class="form-control-lg form-control <?php echo (!empty($_SESSION["password_err"])) ? 'is-invalid' : ''; ?>">
+                                            <span class="invalid-feedback"><?php echo $_SESSION["password_err"] ?></span>
 											<small>
 												<a href="index.html">Forgot password?</a>
 											</small>
@@ -52,7 +59,7 @@
           									</label>
 										</div>
 										<div class="text-center mt-3">
-											<a href="index.html" class="btn btn-lg btn-primary">Sign in</a>
+                                            <input type="submit" class="btn btn-lg btn-primary" value="Sign in">
 											<!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
 										</div>
 									</form>
@@ -66,7 +73,7 @@
 		</div>
 	</main>
 
-	<script src="js/app.js"></script>
+	<script src="styles/js/app.js"></script>
 
 </body>
 

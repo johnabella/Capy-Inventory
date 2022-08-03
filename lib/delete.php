@@ -1,5 +1,5 @@
 <?php 
-    include '../config/db/index.php';
+    include '../db/config.php';
     
     if(isset($_GET['item'])){
         $item = $_GET['item'];

@@ -1,5 +1,5 @@
 <?php
-    include '../config/db/index.php';
+    include '../db/config.php';
 
     $item = $_POST['item'];
     $brand = $_POST['brand'];
