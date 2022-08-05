@@ -115,7 +115,47 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-primary" name="createItem" value="Save">
+                    <input type="submit" class="btn btn-primary" name="editItem" value="Save">
+                </div>
+            </form>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="editSet" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+            <form action="lib/update.php" method="post" autocomplete="off">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Set</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <input type="hidden" name="setID" id="setID">
+                            <input readonly type="text" class="form-control" name="set" id="set">
+                        </div>
+                        <div class="col">
+                            <input type="hidden" name="empID" id="empID">
+                            <select required class="form-select" name="assignee">
+                                <option selected id="assignee"></option>
+                                <?php 
+                                $get_emp = "SELECT * FROM employees ";
+                                $result = mysqli_query($db, $get_emp);
+        
+                                while ($emp = mysqli_fetch_assoc($result)) {
+                                    echo '<option value="' . $emp['id'] . '">' . $emp['firstname'] . '</option>';
+                                }  
+                                ?>
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" name="editSet" value="Save">
                 </div>
             </form>
 		</div>

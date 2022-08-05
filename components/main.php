@@ -25,8 +25,6 @@
 						</thead>
 						<tbody>
 							<?php
-								$db = mysqli_connect('localhost', 'root', '', 'capy_inventory');
-
 								$get_peripherals = "SELECT * FROM peripherals";
 								$result = mysqli_query($db, $get_peripherals);
 
@@ -82,8 +80,10 @@
 					</table>
 				</div>
 			</div>
+			
 
 			<div class="col-12 col-lg-4 col-xxl-3 d-flex">
+				
 				<div class="card flex-fill w-100">
 					<div class="card-header d-flex justify-content-between">
 						<h5 class="card-title mb-0">Sets</h5>
@@ -92,36 +92,50 @@
 					<table class="table table-hover my-0">
 						<thead>
 							<tr>
-								<th>Set</th>
-								<!-- <th>Status</th>
-								<th>Assignee</th> -->
-								<th class="col-md-1">Edit</th>
+								<th class="col-2">Set</th>
+								<!-- <th>Status</th> -->
+								<th>Assignee</th>
+								<th class>Edit</th>
 							</tr>
 						</thead>
 						<tbody>
 						<?php
-							$db = mysqli_connect('localhost', 'root', '', 'capy_inventory');
-
 							$get_sets = "SELECT * FROM set_bundle";
 							$result = mysqli_query($db, $get_sets);
 
 							while ($sets = mysqli_fetch_assoc($result)) {
+								$setID = $sets['set_id'];
 								echo '<tr>';
-									echo '<td style="display: none">' . $sets['set_id'] . '</td>';
+									echo '<td style="display: none">' . $setID . '</td>';
 									echo '<td>' . $sets['set_name'] . '</td>';
+
+									$get_employee = "SELECT * FROM employees WHERE set_id = '$setID' ";
+									$result_emp = mysqli_query($db, $get_employee);
+									
+									if(mysqli_num_rows($result_emp)){
+										while ($employee = mysqli_fetch_assoc($result_emp)) {
+											$employeeID = $employee['id'];
+											echo '<td>' . $employee['firstname'] .'</td>';
+											echo '<td style="display: none">' . $employeeID  . '</td>';
+										}
+									} else {
+										echo '<td>None</td>';
+									}
+									
 									echo '
 									<td>
 										<a href="" data-bs-toggle="modal" data-bs-target="#deleteSet" class="set">
 											<i class="align-middle me-2" data-feather="trash-2"></i>
 										</a>
+										
+										<a data-bs-toggle="modal" data-bs-target="#editSet" class="set">
+											<i class="align-middle" data-feather="settings"></i>
+										</a>
+																		
 									</td>';
 								echo '</tr>';
 							}
 						?>
-							<!-- <tr>
-								<td><span class="badge bg-success">Done</span></td>
-								<td class="d-none d-md-table-cell">Vanessa Tucker</td>
-							</tr> -->
 						</tbody>
 					</table>
 				</div>
@@ -133,6 +147,8 @@
 </main>
 
 <script>
+	
+
 	$('.set').click(function(){
 		$tr = $(this).closest('tr');
 
@@ -140,9 +156,16 @@
 			return $(this).text();
 		}).get();
 
+		console.log($data);
+
 		$('.modal #set').html($data[1]);
 		$('#deleteSet #delete').attr('href','lib/delete.php?set='+ $data[0]);
-		
+
+		$('#editSet #setID').val($data[0]);
+		$('#editSet #set').val($data[1]);
+		$('#editSet #assignee').html($data[2]);
+		$('#editSet #empID').val($data[3]);
+
 	});
 
 	$('.item').click(function(){
@@ -152,7 +175,7 @@
 			return $(this).text();
 		}).get();
 
-		// change to class
+		// organize->change to class 
 
 		$('#item').val($data[0]);
 		$('#brand').val($data[1]);

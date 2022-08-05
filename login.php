@@ -60,7 +60,6 @@
 										</div>
 										<div class="text-center mt-3">
                                             <input type="submit" class="btn btn-lg btn-primary" value="Sign in">
-											<!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
 										</div>
 									</form>
 								</div>

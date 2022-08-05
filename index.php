@@ -1,4 +1,4 @@
-<?php include 'db/config.php'; ?>
+<?php include 'db/config.php'; session_start();?>
 <!DOCTYPE html>
 <html lang="en">
 

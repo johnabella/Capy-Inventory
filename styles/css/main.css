@@ -4,3 +4,7 @@
     transform: translate(-50%, -50%) !important;
     position: absolute;
 }
+button.set {
+    border: none;
+    background: none;
+}
