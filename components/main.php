@@ -31,6 +31,7 @@
 								while ($peripherals = mysqli_fetch_assoc($result)) {
 									echo '<tr>';
 										echo '<td style="display: none">' . $peripherals['component_id'] . '</td>';
+										echo '<td style="display: none">' . $peripherals['set_id'] . '</td>';
 										echo '<td>' . $peripherals['brand'] . '</td>';
 										echo '<td>' . $peripherals['unit'] . '</td>';
 										echo '<td>' . $peripherals['serial_number'] . '</td>';
@@ -123,7 +124,6 @@
 										<a data-bs-toggle="modal" data-bs-target="#editSet" class="set">
 											<i class="align-middle" data-feather="settings"></i>
 										</a>
-																		
 									</td>';
 								echo '</tr>';
 							}

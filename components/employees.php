@@ -1,68 +1,57 @@
 <main class="content">
 	<div class="container-fluid p-0">
 
-		<h1 class="h3 mb-3"><strong>Dashboard</strong></h1>
+		<h1 class="h3 mb-3"><strong>Employees</strong></h1>
 
 		<div class="row">
 			<div class="col-12 d-flex">
 				<div class="card flex-fill">
-					<div class="card-header d-flex justify-content-between">
-						<h5 class="card-title mb-0">Peripherals</h5>
-						<a data-bs-toggle="modal" data-bs-target="#createItem"><i class="align-middle me-2" data-feather="plus"></i></a>
+					<div class="card-header d-flex justify-content-end">
+						<a data-bs-toggle="modal" data-bs-target="#createEmployee"><i class="align-middle me-2" data-feather="plus"></i></a>
 					</div>
 					<table class="table table-hover my-0">
 						<thead>
 							<tr>
-								<th>Brand</th>
-								<th>Unit</th>
-								<th>Serial Number</th>
-								<th>Purchase Date</th>
+								<th>First Name</th>
+                                <th>Last Name</th>
 								<th>Set</th>
-								<!-- <th>Status</th>
-								<th>Assignee</th> -->
 								<th>Edit</th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php
-								$get_peripherals = "SELECT * FROM peripherals";
-								$result = mysqli_query($db, $get_peripherals);
+								$get_employees = "SELECT * FROM employees";
+								$result = mysqli_query($db, $get_employees);
 
-								while ($peripherals = mysqli_fetch_assoc($result)) {
+								while ($employees = mysqli_fetch_assoc($result)) {
+                                    $setID = $employees['set_id'];
 									echo '<tr>';
-										echo '<td style="display: none">' . $peripherals['component_id'] . '</td>';
-										echo '<td>' . $peripherals['brand'] . '</td>';
-										echo '<td>' . $peripherals['unit'] . '</td>';
-										echo '<td>' . $peripherals['serial_number'] . '</td>';
-										echo '<td>' . $peripherals['purchase_date'] . '</td>';
-									
-										$set = $peripherals['set_id'];
+										echo '<td style="display: none">' . $employees['id'] . '</td>';
+										echo '<td style="display: none">' . $employees['set_id'] . '</td>';
+										echo '<td>' . $employees['firstname'] . '</td>';
+										echo '<td>' . $employees['lastname'] . '</td>';
+                                        
 
-										if($set == 0) {
-											echo '<td>None</td>';
-										} else {
-											$get_setID = "SELECT *
+                                        $get_setName = "SELECT *
 											FROM set_bundle 
-											WHERE set_id = '$set'";
-												
-											$result_set = mysqli_query($db, $get_setID);
+											WHERE set_id = $setID";
 
-											if (mysqli_num_rows($result_set) > 0) {
-												while ($set = mysqli_fetch_assoc($result_set)) {
-													$set = $set['set_name'];
-													echo '<td>' . $set . '</td>';
-												}
-											} else {
-												echo '<td>None</td>';
-											}                    
-										}
+                                        $result1 = mysqli_query($db, $get_setName);
 
+                                        if (mysqli_num_rows($result1)){
+                                            while ($set = mysqli_fetch_assoc($result1)) {
+                                                echo '<td>' . $set['set_name'] . '</td>';
+                                            }
+                                        } else {
+                                            echo '<td>None</td>';
+                                        }
 										echo '
 											<td>
-												<a href="" data-bs-toggle="modal" data-bs-target="#deleteItem" class="item">
+												<a href="" data-bs-toggle="modal" data-bs-target="#deleteEmployee" class="employee">
 													<i class="align-middle me-2" data-feather="trash-2"></i>
 												</a>
-												<a data-bs-toggle="modal" data-bs-target="#editItem" class="item" id="' . $peripherals['component_id'] . '">
+												
+												<a data-bs-toggle="modal" data-bs-target="#editEmployee" class="employee">
 													<i class="align-middle" data-feather="settings"></i>
 												</a>
 											</td>';

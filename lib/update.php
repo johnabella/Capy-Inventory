@@ -40,5 +40,18 @@
 
             header('location: ../index.php');
         }
+    } elseif (isset($_POST['editEmployee'])) {
+        $employee = $_POST['employee'];
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastname'];
+        $set = $_POST['set'];
+
+        $update_query = "UPDATE employees 
+            SET firstname = '$firstname',
+                lastname = '$lastname',
+                set_id = '$set'
+            WHERE id = '$employee'";
+        mysqli_query($db, $update_query);
+        header('location: ../employee.php');
     }   
 ?>

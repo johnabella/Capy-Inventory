@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="createSet" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="createSet" tabindex="-1"  aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
             <form action="lib/create.php" method="post" autocomplete="off">
@@ -19,7 +19,7 @@
 	</div>
 </div>
 
-<div class="modal fade" id="createItem" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="createItem" tabindex="-1"  aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
             <form action="lib/create.php" method="post" autocomplete="off">
@@ -57,6 +57,7 @@
                                         echo '<option value="' . $set['set_id'] . '">' . $set['set_name'] . '</option>';
                                     }  
                                 ?>
+                                <option value="0">None</option>
                             </select>
                         </div>
                     </div>
@@ -70,7 +71,63 @@
 	</div>
 </div>
 
-<div class="modal fade" id="editItem" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="createEmployee" tabindex="-1"  aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+            <form action="lib/create.php" method="post" autocomplete="off">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Employee</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <input required type="text" class="form-control" placeholder="First Name" name="firstname">
+                        </div>
+                        <div class="col">
+                            <input required type="text" class="form-control" placeholder="Last Name" name="lastname">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-auto">
+                            <select required class="form-select mb-3" name="set">
+                                <option disabled selected>Set</option>
+                                <?php
+
+                                    $get_sets = "SELECT * FROM set_bundle";
+                                    $result = mysqli_query($db, $get_sets);
+            
+                                    while ($set = mysqli_fetch_assoc($result)) {
+                                        $setID = $set['set_id'];
+                                        $check_set_assigned = "SELECT *
+                                            FROM employees
+                                            WHERE set_id = '$setID'";
+
+                                        $check_set_assigned_result = mysqli_query($db, $check_set_assigned);
+
+                                        if (mysqli_num_rows($check_set_assigned_result)){
+                                            echo '<option disabled value="' . $set['set_id'] . '">' . $set['set_name'] . '</option>';
+                                        } else {
+                                            echo '<option value="' . $set['set_id'] . '">' . $set['set_name'] . '</option>';
+                                        }
+                                        
+                                    }
+                                ?>
+                                <option value="0">None</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" name="createEmployee">
+                </div>
+            </form>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="editItem" tabindex="-1"  aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
             <form action="lib/update.php" method="post" autocomplete="off">
@@ -122,7 +179,7 @@
 	</div>
 </div>
 
-<div class="modal fade" id="editSet" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editSet" tabindex="-1"  aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
             <form action="lib/update.php" method="post" autocomplete="off">
@@ -169,11 +226,68 @@
 	</div>
 </div>
 
-<div class="modal fade" id="deleteSet" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editEmployee" tabindex="-1"  aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+            <form action="lib/update.php" method="post" autocomplete="off">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Employee</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="employee" id="employee">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <input required type="text" class="form-control" placeholder="Brand" name="firstname" id="firstname">
+                        </div>
+                        <div class="col">
+                            <input required type="text" class="form-control" placeholder="Unit Name" name="lastname" id="lastname">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-auto">
+                            <select required class="form-select" name="set">
+                                <option selected id="set"></option>
+                                <?php
+
+                                    $get_sets = "SELECT * FROM set_bundle";
+                                    $result = mysqli_query($db, $get_sets);
+            
+                                    while ($set = mysqli_fetch_assoc($result)) {
+                                        $setID = $set['set_id'];
+                                        $check_set_assigned = "SELECT *
+                                            FROM employees
+                                            WHERE set_id = '$setID'";
+
+                                        $check_set_assigned_result = mysqli_query($db, $check_set_assigned);
+
+                                        if (mysqli_num_rows($check_set_assigned_result)){
+                                            echo '<option disabled value="' . $set['set_id'] . '">' . $set['set_name'] . '</option>';
+                                        } else {
+                                            echo '<option value="' . $set['set_id'] . '">' . $set['set_name'] . '</option>';
+                                        }
+                                        
+                                    }
+                                ?>
+                                <option value="0">None</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" name="editEmployee" value="Save">
+                </div>
+            </form>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="deleteSet" tabindex="-1"  aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Do you want to delete this set?</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete this set?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -187,11 +301,11 @@
 	</div>
 </div>
 
-<div class="modal fade" id="deleteItem" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteItem" tabindex="-1"  aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Do you want to delete this item?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete this item?</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -216,6 +330,37 @@
                         <div class="col-auto">
                             <input disabled type="text" class="form-control"  name="set" id="set">
                             
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="" class="btn btn-danger" id="delete">Delete</a>
+                </div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="deleteEmployee" tabindex="-1"  aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete this employee?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="employee" id="employee">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <input disabled type="text" class="form-control" placeholder="First Name" name="firstname" id="firstname">
+                        </div>
+                        <div class="col">
+                            <input disabled type="text" class="form-control" placeholder="Last Name" name="lastname" id="lastname">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-auto">
+                            <input disabled type="text" class="form-control"  name="set" id="set">
                         </div>
                     </div>
                 </div>

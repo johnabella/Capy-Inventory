@@ -9,13 +9,13 @@
                 Pages
             </li>
 
-            <li class="sidebar-item active">
-                <a class="sidebar-link" href="index.html">
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="index.php">
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
                 </a>
             </li>
             <li class="sidebar-item">
-				<a class="sidebar-link" href="employees.php">
+				<a class="sidebar-link" href="employee.php">
                     <i class="align-middle" data-feather="user"></i> <span class="align-middle">Employees</span>
                 </a>
 			</li>
