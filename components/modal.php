@@ -140,12 +140,19 @@
                             <input type="hidden" name="empID" id="empID">
                             <select required class="form-select" name="assignee">
                                 <option selected id="assignee"></option>
+                                <option value="0">None</option>
                                 <?php 
                                 $get_emp = "SELECT * FROM employees ";
                                 $result = mysqli_query($db, $get_emp);
         
                                 while ($emp = mysqli_fetch_assoc($result)) {
-                                    echo '<option value="' . $emp['id'] . '">' . $emp['firstname'] . '</option>';
+                                    if($emp['set_id']){
+                                        echo '<option disabled value="' . $emp['id'] . '">' . $emp['firstname'] . '</option>';
+                                    } else {
+                                        echo '<option value="' . $emp['id'] . '">' . $emp['firstname'] . '</option>';
+                                        
+                                    }
+                                    
                                 }  
                                 ?>
 

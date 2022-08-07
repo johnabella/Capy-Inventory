@@ -11,8 +11,14 @@
     } else if(isset($_GET['set'])){
         $set = $_GET['set'];
 
-        $delete = "DELETE FROM set_bundle WHERE set_id = '$set'";
-        mysqli_query($db, $delete);
+        $delete_assignee = "UPDATE employees
+            SET set_id = 0
+            WHERE set_id = '$set'";
+            
+        mysqli_query($db, $delete_assignee);
+
+        $delete_set = "DELETE FROM set_bundle WHERE set_id = '$set'";
+        mysqli_query($db, $delete_set);
 
         header('location: ../index.php');
     }

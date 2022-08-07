@@ -8,3 +8,7 @@ button.set {
     border: none;
     background: none;
 }
+option:disabled {
+    background-color: #e9ecef;
+    opacity: 1;
+}

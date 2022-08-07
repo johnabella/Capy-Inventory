@@ -23,15 +23,14 @@
 		<div class="main">
 			<?php 
 				include './components/navbar.php';
-				include './components/main.php';
+				include './components/employees.php';
 				include './components/footer.php';
-				include './components/modal.php';
+
 			?>
 		</div>
 	</div>
 	
 	<script src="styles/js/app.js"></script>
-	<script src="styles/js/main.js"></script>
 	
 </body>
 </html>

@@ -19,26 +19,26 @@
         mysqli_query($db, $update_query);
         header('location: ../index.php');
     } else if(isset($_POST['editSet'])){
-        echo 'setid: ';
-        echo $setID = $_POST['setID'];
-        echo '<br>';
-        echo 'set: ';
-        echo $set = $_POST['set'];
-        echo '<br>';
-        echo 'empid: ';
-        echo $empID = $_POST['empID'];
-        echo '<br>';
-        echo 'asignee: ';
-        echo $assignee = $_POST['assignee'];
-        echo '<br>';
-        
-        $update_query = "UPDATE employees 
-            SET set_id = '$setID',
-            WHERE id = '$assignee'";
-        mysqli_query($db, $update_query);
 
-    
-        header('location: ../index.php');
-    }
-    
+        $setID = $_POST['setID'];
+        $set = $_POST['set'];
+        $empID = $_POST['empID'];
+        $assignee = $_POST['assignee'];
+
+        if($empID == $assignee){ // ignored if selected == previous
+            header('location: ../index.php');
+        } else {
+            $set_selected = "UPDATE employees 
+                SET set_id = '$setID'
+                WHERE id = '$assignee'";
+            mysqli_query($db, $set_selected);
+
+            $set_previous = "UPDATE employees 
+                SET set_id = 0
+                WHERE id = '$empID'";
+            mysqli_query($db, $set_previous);
+
+            header('location: ../index.php');
+        }
+    }   
 ?>
