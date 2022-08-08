@@ -75,5 +75,7 @@ $('.employee').click(function(){
 $('.sidebar-item a').each(function(){
     if($(location).attr('pathname').includes($(this).attr('href'))){
         $(this).parent().addClass("active");
+    } else if($(location).attr('pathname') == '/InventoryHR/'){
+        $('.sidebar-item a[href="index.php"]').parent().addClass("active");
     }
 });

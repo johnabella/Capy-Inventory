@@ -166,6 +166,7 @@
                                         echo '<option value="' . $set['set_id'] . '">' . $set['set_name'] . '</option>';
                                     }  
                                 ?>
+                                <option value="0">None</option>
                             </select>
                         </div>
                     </div>
