@@ -12,3 +12,6 @@ option:disabled {
     background-color: #e9ecef;
     opacity: 1;
 }
+.content .card {
+    min-height: 550px;
+}
