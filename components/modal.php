@@ -204,6 +204,7 @@
                                 $result = mysqli_query($db, $get_emp);
         
                                 while ($emp = mysqli_fetch_assoc($result)) {
+                                    
                                     if($emp['set_id']){
                                         echo '<option disabled value="' . $emp['id'] . '">' . $emp['firstname'] . '</option>';
                                     } else {

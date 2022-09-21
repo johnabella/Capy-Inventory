@@ -65,9 +65,9 @@ $('.employee').click(function(){
     $('#editEmployee #set').text($data[4]);
 
     $('#deleteEmployee #employee').val($data[0]);
-    $('#deleteEmployee #firstname').val($data[1]);
-    $('#deleteEmployee #lastname').val($data[2]);
-    $('#deleteEmployee #set').val($data[3]);
+    $('#deleteEmployee #firstname').val($data[2]);
+    $('#deleteEmployee #lastname').val($data[3]);
+    $('#deleteEmployee #set').val($data[4]);
 
     $('#deleteEmployee #delete').attr('href','lib/delete.php?employee='+ $data[0]);
 });
