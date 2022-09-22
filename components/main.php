@@ -13,13 +13,12 @@
 					<table class="table table-hover my-0">
 						<thead>
 							<tr>
-								<th>Brand</th>
+								<th>Item</th>
 								<th>Unit</th>
 								<th>Serial Number</th>
 								<th>Purchase Date</th>
 								<th>Set</th>
-								<!-- <th>Status</th>
-								<th>Assignee</th> -->
+								<!-- <th>Status</th> -->
 								<th>Edit</th>
 							</tr>
 						</thead>
@@ -108,7 +107,7 @@
 									if(mysqli_num_rows($result_emp)){
 										while ($employee = mysqli_fetch_assoc($result_emp)) {
 											$employeeID = $employee['id'];
-											echo '<td>' . $employee['firstname'] .'</td>';
+											echo '<td>' . $employee['firstname'] . ' ' . $employee['lastname'] .'</td>';
 											echo '<td style="display: none">' . $employeeID  . '</td>';
 										}
 									} else {

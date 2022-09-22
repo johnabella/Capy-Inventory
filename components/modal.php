@@ -74,7 +74,7 @@
 <div class="modal fade" id="createEmployee" tabindex="-1"  aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
-            <form action="lib/create.php" method="post" autocomplete="off">
+            <form action="lib/create.php" method="post" autocomplete="off" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Add Employee</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -82,15 +82,15 @@
                 <div class="modal-body">
                     <div class="row mb-3">
                         <div class="col">
-                            <input required type="text" class="form-control" placeholder="First Name" name="firstname">
+                            <input type="text" class="form-control" placeholder="First Name" name="firstname">
                         </div>
                         <div class="col">
-                            <input required type="text" class="form-control" placeholder="Last Name" name="lastname">
+                            <input type="text" class="form-control" placeholder="Last Name" name="lastname">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-auto">
-                            <select required class="form-select mb-3" name="set">
+                            <select class="form-select mb-3" name="set">
                                 <option disabled selected>Set</option>
                                 <?php
 
@@ -115,6 +115,12 @@
                                 ?>
                                 <option value="0">None</option>
                             </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-auto">
+                                <label for="formFile" class="form-label">Bulk add employee</label>
+                                <input class="form-control" type="file" id="formFile" name="empFile">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -197,8 +203,6 @@
                         <div class="col">
                             <input type="hidden" name="empID" id="empID">
                             <select required class="form-select" name="assignee">
-                                <option selected id="assignee"></option>
-                                
                                 <?php 
                                 $get_emp = "SELECT * FROM employees ";
                                 $result = mysqli_query($db, $get_emp);
@@ -206,9 +210,9 @@
                                 while ($emp = mysqli_fetch_assoc($result)) {
                                     
                                     if($emp['set_id']){
-                                        echo '<option disabled value="' . $emp['id'] . '">' . $emp['firstname'] . '</option>';
+                                        echo '<option disabled selected value="' . $emp['id'] . '">' . $emp['firstname'] . ' ' . $emp['lastname'] . '</option>';
                                     } else {
-                                        echo '<option value="' . $emp['id'] . '">' . $emp['firstname'] . '</option>';
+                                        echo '<option value="' . $emp['id'] . '">' . $emp['firstname'] . ' ' . $emp['lastname'] . '</option>';
                                         
                                     }
                                     
@@ -249,7 +253,6 @@
                     <div class="row">
                         <div class="col-auto">
                             <select required class="form-select" name="set">
-                                <option selected id="set"></option>
                                 <?php
 
                                     $get_sets = "SELECT * FROM set_bundle";
@@ -264,7 +267,7 @@
                                         $check_set_assigned_result = mysqli_query($db, $check_set_assigned);
 
                                         if (mysqli_num_rows($check_set_assigned_result)){
-                                            echo '<option disabled value="' . $set['set_id'] . '">' . $set['set_name'] . '</option>';
+                                            echo '<option disabled selected value="' . $set['set_id'] . '">' . $set['set_name'] . '</option>';
                                         } else {
                                             echo '<option value="' . $set['set_id'] . '">' . $set['set_name'] . '</option>';
                                         }
